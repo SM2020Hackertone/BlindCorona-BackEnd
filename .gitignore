@@ -230,7 +230,7 @@ out/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
-constant/
+constant/*
 
 # JIRA plugin
 atlassian-ide-plugin.xml
