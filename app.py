@@ -15,6 +15,7 @@ def corona_status():
 
     return data
 
+
 @app.route('/corona-info')
 def corona_info():
     args = request.args.get('text', None)
@@ -28,11 +29,34 @@ def corona_info():
     data = corona_controller.get_corona_info(date, region)
     return {'data': data}, 200
 
+
 @app.route('/news')
 def corona_news():
     data = news_controller.get_news()
     return data
 
 
+@app.route('/news/img', methods=['POST'])
+def corona_news_img():
+    args = request.get_json(force=True)
+    print(args)
+    data = news_controller.get_img_api(args['link'])
+    print(data)
+
+    return {
+        'img': data,
+    }
+
+
+@app.route('/news', methods=['POST'])
+def corona_detail():
+    args = request.get_json(force=True)
+    data = news_controller.get_single_news(args['link'])
+
+    return {
+        'news': data
+    }
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=3000)
