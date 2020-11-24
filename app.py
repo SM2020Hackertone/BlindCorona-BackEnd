@@ -28,7 +28,10 @@ def corona_info():
     r = requests.get(language_processing_server, parameter)
     date = r.json()['Date']
     region = r.json()['Location']
-    data = corona_controller.get_corona_info(date, region)
+    if date == "":
+        data = corona_controller.get_corona_status(region)
+    else :
+        data = corona_controller.get_corona_info(date, region)
     return {'data': data}, 200
 
 
@@ -61,4 +64,4 @@ def corona_detail():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
+    app.run(host='0.0.0.0', port=5000)
