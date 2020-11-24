@@ -12,6 +12,8 @@ total_url = constant.TOTAL_URL
 
 
 def get_corona_status(region, date):
+    if region == "전국":
+        region = None
 
     # 전국 단위 API 호출
 
