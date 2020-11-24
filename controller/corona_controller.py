@@ -18,8 +18,9 @@ def get_corona_status(region, date):
     # 전국 단위 API 호출
 
     total_request_url = f'{total_url}?ServiceKey={total_service_key}&numOfRows=1000'
-    if date is not None:
-        total_request_url += f'&startCreatedDt={date}&endCreateDt={date}'
+    if date:
+        total_request_url += f'&startCreateDt={date}&endCreateDt={date}'
+    print(total_request_url)
 
     total_response = requests.get(total_request_url)
     total_parsed_data = xmltodict.parse(total_response.text)
@@ -39,24 +40,18 @@ def get_corona_status(region, date):
         with open('total_corona.pickle', 'rb') as fr:
             total_corona = pickle.load(fr)['response']['body']['items']['item']
 
-    if date is None:
-        total_data = {
-            'resutlNegCnt': total_corona['resutlNegCnt'],
-            'careCnt': total_corona['careCnt'],
-            'accExamCnt': total_corona['accExamCnt'],
-        }
-    else:
-        total_data = {
-            'resutlNegCnt': total_corona[0]['resutlNegCnt'],
-            'careCnt': total_corona[0]['careCnt'],
-            'accExamCnt': total_corona[0]['accExamCnt'],
-        }
+    total_data = {
+        'resutlNegCnt': total_corona['resutlNegCnt'],
+        'careCnt': total_corona['careCnt'],
+        'accExamCnt': total_corona['accExamCnt'],
+    }
 
     # 시도 단위 API 호출
 
     sido_request_url = f'{sido_url}?ServiceKey={service_key}&numOfRows=1000';
-    if date is not None:
+    if date:
         sido_request_url += f'&startCreateDt={date}&endCreateDt={date}'
+    print(sido_request_url)
 
     sido_response = requests.get(sido_request_url)
 
@@ -76,7 +71,7 @@ def get_corona_status(region, date):
 
     is_valid_region = False
 
-    if region is None:
+    if not region:
         region_data = corona_list[-1]
     else:
         for corona_item in corona_list:
