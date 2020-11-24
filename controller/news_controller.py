@@ -1,14 +1,17 @@
+from multiprocessing import Pool
+
 import requests
 
 from constant import constant
-from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from selenium import webdriver
+
+driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+driver.implicitly_wait(1)
 
 naver_url = constant.NAVER_URL
 client_id = constant.CLIENT_ID
 client_secret = constant.CLIENT_SECRET
-
 
 def get_news():
     ua = UserAgent()
@@ -26,22 +29,38 @@ def get_news():
                             })
 
     news_list = response.json()['items']
-    naver_news_list = list(filter(lambda x: 'news.naver.com' in x['link'], news_list))
+    naver_news_list = list(filter(lambda x: 'news.naver.com' in x['link'], news_list))[:10]
+    pool = Pool(processes=4)
+    pool.map(_get_img, naver_news_list)
+    pool.close()
+    pool.join()
 
-    # for news in naver_news_list:
-    #     news_response = requests.get(news['link'])
-    #     html = news_response.text
-    #     soup = BeautifulSoup(html, 'html.parser')
-    #     img = soup.select('#articleBodyContents > span.end_photo_org > img')
-    #     print(img)
-
-    news_response = requests.get(naver_news_list[0]['link'])
-    print(news_response)
-    html = news_response.text
-    soup = BeautifulSoup(html, 'html.parser')
-    img = soup.select('.end_photo_org')
-    print(img)
+    print(naver_news_list)
 
     return {
         'news': naver_news_list,
     }
+
+
+def _get_img(news):
+    driver.get(news['link'])
+
+    try:
+        photo_element = driver.find_element_by_class_name('end_photo_org')
+        img_element = photo_element.find_element_by_tag_name('img')
+        img_src = img_element.get_attribute('src')
+        news['img'] = img_src
+    except:
+        return
+
+
+def get_img_api(link):
+    driver.get(link)
+
+    try:
+        photo_element = driver.find_element_by_class_name('end_photo_org')
+        img_element = photo_element.find_element_by_tag_name('img')
+        img_src = img_element.get_attribute('src')
+        return img_src
+    except:
+        return
