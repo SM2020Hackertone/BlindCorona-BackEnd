@@ -65,12 +65,18 @@ def get_img_api(link):
 def get_single_news(link):
     driver.get(link)
 
-    news = {}
+    news = {
+        'img': None
+    }
 
-    photo_element = driver.find_element_by_class_name('end_photo_org')
-    img_element = photo_element.find_element_by_tag_name('img')
-    img_src = img_element.get_attribute('src')
-    news['img'] = img_src
+    try:
+        photo_element = driver.find_element_by_class_name('end_photo_org')
+        img_element = photo_element.find_element_by_tag_name('img')
+        img_src = img_element.get_attribute('src')
+        news['img'] = img_src
+    except:
+        return
+
     news['title'] = driver.find_element_by_id('articleTitle').text
     news['content'] = driver.find_element_by_id('articleBodyContents').text
     news['date'] = driver.find_element_by_class_name('t11').text
