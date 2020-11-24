@@ -20,7 +20,6 @@ def get_corona_status(region, date):
     total_request_url = f'{total_url}?ServiceKey={total_service_key}&numOfRows=1000'
     if date:
         total_request_url += f'&startCreateDt={date}&endCreateDt={date}'
-    print(total_request_url)
 
     total_response = requests.get(total_request_url)
     total_parsed_data = xmltodict.parse(total_response.text)
@@ -51,7 +50,6 @@ def get_corona_status(region, date):
     sido_request_url = f'{sido_url}?ServiceKey={service_key}&numOfRows=1000';
     if date:
         sido_request_url += f'&startCreateDt={date}&endCreateDt={date}'
-    print(sido_request_url)
 
     sido_response = requests.get(sido_request_url)
 

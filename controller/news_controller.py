@@ -30,7 +30,8 @@ def get_news():
                             })
 
     news_list = response.json()['items']
-    naver_news_list = list(filter(lambda x: 'news.naver.com' in x['link'], news_list))[:10]
+    naver_news_list = list(filter(lambda x: 'https://news.naver.com' in x['link'] and 'sports' not in x['originallink'],
+                                  news_list))[:10]
 
     return {
         'news': naver_news_list,
@@ -75,4 +76,3 @@ def get_single_news(link):
     news['date'] = driver.find_element_by_class_name('t11').text
 
     return news
-
