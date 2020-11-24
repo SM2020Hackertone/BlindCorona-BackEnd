@@ -17,9 +17,10 @@ def get_corona_status(region, date):
 
     # 전국 단위 API 호출
 
-    total_request_url = f'{total_url}?ServiceKey={total_service_key}&numOfRows=1000'
+    total_request_url = f'{total_url}?ServiceKey={total_service_key}&numOfRows=100'
     if date:
         total_request_url += f'&startCreateDt={date}&endCreateDt={date}'
+
 
     total_response = requests.get(total_request_url)
     total_parsed_data = xmltodict.parse(total_response.text)
@@ -47,7 +48,7 @@ def get_corona_status(region, date):
 
     # 시도 단위 API 호출
 
-    sido_request_url = f'{sido_url}?ServiceKey={service_key}&numOfRows=1000';
+    sido_request_url = f'{sido_url}?ServiceKey={service_key}&numOfRows=100';
     if date:
         sido_request_url += f'&startCreateDt={date}&endCreateDt={date}'
 
