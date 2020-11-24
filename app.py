@@ -10,7 +10,7 @@ CORS(app)
 @app.route('/corona-status')
 def corona_status():
     args = request.args.get('region', None)
-    data = corona_controller.get_corona_status(args)
+    data = corona_controller.get_corona_status(args, None)
 
     if data is None:
         return {'message': '검증 오류'}, 400
@@ -28,10 +28,9 @@ def corona_info():
     r = requests.get(language_processing_server, parameter)
     date = r.json()['Date']
     region = r.json()['Location']
-    if date == "":
-        data = corona_controller.get_corona_status(region)
-    else :
-        data = corona_controller.get_corona_info(date, region)
+
+    data = corona_controller.get_corona_status(region, date)
+
     return {'data': data}, 200
 
 
@@ -46,7 +45,6 @@ def corona_news_img():
     args = request.get_json(force=True)
     print(args)
     data = news_controller.get_img_api(args['link'])
-    print(data)
 
     return {
         'img': data,
