@@ -1,8 +1,10 @@
 from flask import Flask, request
 from controller import corona_controller, news_controller
+from flask_cors import CORS
 import requests
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/corona-status')
