@@ -28,15 +28,15 @@ def get_corona_status(region, date):
 
     # 전국 더미 만들기
 
-    if total_res_dict['response']['header']['resultCode'] == '00':
-        with open('total_corona.pickle', 'wb') as fw:
-            pickle.dump(total_res_dict, fw)
-
     total_corona = {}
     total_data = {}
 
     try:
         total_corona = total_res_dict['response']['body']['items']['item']
+
+        if total_res_dict['response']['header']['resultCode'] == '00':
+            with open('total_corona.pickle', 'wb') as fw:
+                pickle.dump(total_res_dict, fw)
     except:
         with open('total_corona.pickle', 'rb') as fr:
             total_corona = pickle.load(fr)['response']['body']['items']['item']
@@ -58,14 +58,15 @@ def get_corona_status(region, date):
     sido_parsed_data = xmltodict.parse(sido_response.text)
     sido_res_dict = json.loads(json.dumps(sido_parsed_data))
 
-    if sido_res_dict['response']['header']['resultCode'] == '00':
-        with open('corona.pickle', 'wb') as fw:
-            pickle.dump(sido_res_dict, fw)
-
     region_data = {}
     corona_list = []
     try:
         corona_list = sido_res_dict['response']['body']['items']['item']
+
+        if sido_res_dict['response']['header']['resultCode'] == '00':
+            with open('corona.pickle', 'wb') as fw:
+                pickle.dump(sido_res_dict, fw)
+
     except:
         with open('corona.pickle', 'rb') as fr:
             corona_list = pickle.load(fr)['response']['body']['items']['item']
