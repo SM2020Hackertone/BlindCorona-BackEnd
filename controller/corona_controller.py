@@ -28,8 +28,9 @@ def get_corona_status(region, date):
 
     # 전국 더미 만들기
 
-    with open('total_corona.pickle', 'wb') as fw:
-        pickle.dump(total_res_dict, fw)
+    if total_res_dict['response']['header']['resultCode'] == '00':
+        with open('total_corona.pickle', 'wb') as fw:
+            pickle.dump(total_res_dict, fw)
 
     total_corona = {}
     total_data = {}
@@ -57,8 +58,9 @@ def get_corona_status(region, date):
     sido_parsed_data = xmltodict.parse(sido_response.text)
     sido_res_dict = json.loads(json.dumps(sido_parsed_data))
 
-    with open('corona.pickle', 'wb') as fw:
-        pickle.dump(sido_res_dict, fw)
+    if sido_res_dict['response']['header']['resultCode'] == '00':
+        with open('corona.pickle', 'wb') as fw:
+            pickle.dump(sido_res_dict, fw)
 
     region_data = {}
     corona_list = []
@@ -66,7 +68,7 @@ def get_corona_status(region, date):
         corona_list = sido_res_dict['response']['body']['items']['item']
     except:
         with open('corona.pickle', 'rb') as fr:
-            corona_list = pickle.load['response']['body']['items']['item']
+            corona_list = pickle.load(fr)['response']['body']['items']['item']
 
     is_valid_region = False
 

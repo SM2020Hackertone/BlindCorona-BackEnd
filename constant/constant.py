@@ -1,5 +1,5 @@
-SERVICE_KEY="t%2FXgWfBlkFqZI5SM9%2FqnpiSo6iMT%2FmtCeb7Uk3ILQXpVpjCh1lVAZmJmtR3y6HwYphXsGPZZvsTie0PePNfjIQ%3D%3D"
-TOTAL_SERVICE_KEY="%2B8KVYXhkChcsF%2F6mdz3UFqA%2BgJu5FzbZh7XE%2FkmUS8t4qgqjZCf%2BAQiRgvohHYtPWbo4SkXv8DAhw4TjWe16nw%3D%3D"
+SERVICE_KEY="JGMlPMEcTuNV8sbu5JRfjhwjPXMdCv1OJ1qQefm0vVuKWGKtGHAcJEWtm63GOVyMQYAcI%2BoXUBe0nsJ4w3RiZw%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200821&endCreateDt=20200821"
+TOTAL_SERVICE_KEY="JGMlPMEcTuNV8sbu5JRfjhwjPXMdCv1OJ1qQefm0vVuKWGKtGHAcJEWtm63GOVyMQYAcI%2BoXUBe0nsJ4w3RiZw%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200821&endCreateDt=20200821"
 SIDO_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson"
 TOTAL_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson"
 
