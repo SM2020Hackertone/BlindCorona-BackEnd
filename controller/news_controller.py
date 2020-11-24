@@ -75,7 +75,7 @@ def get_single_news(link):
         img_src = img_element.get_attribute('src')
         news['img'] = img_src
     except:
-        return
+        pass
 
     news['title'] = driver.find_element_by_id('articleTitle').text
     news['content'] = driver.find_element_by_id('articleBodyContents').text
