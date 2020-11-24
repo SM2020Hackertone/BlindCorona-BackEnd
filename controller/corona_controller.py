@@ -12,14 +12,17 @@ def get_corona_status(region):
 
     parsed_data = xmltodict.parse(response.text)
     res_dict = json.loads(json.dumps(parsed_data))
-    corona_list = res_dict['response']['body']['items']['item']
 
-    if region is None:
-        return corona_list[-1]
+    try:
+        corona_list = res_dict['response']['body']['items']['item']
 
-    for corona_item in corona_list:
-        if corona_item['gubun'] == region:
-            return corona_item
+        if region is None:
+            return corona_list[-1]
+
+        for corona_item in corona_list:
+            if corona_item['gubun'] == region:
+                return corona_item
+    except:
+        return {}
 
     return None
-
