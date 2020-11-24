@@ -10,7 +10,7 @@ CORS(app)
 @app.route('/corona-status')
 def corona_status():
     args = request.args.get('region', None)
-    data = corona_controller.get_corona_status('전국', '20201123')
+    data = corona_controller.get_corona_status(args, None)
 
     if data is None:
         return {'message': '검증 오류'}, 400
